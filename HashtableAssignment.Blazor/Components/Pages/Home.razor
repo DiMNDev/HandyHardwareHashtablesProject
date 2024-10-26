@@ -1,7 +1,75 @@
-﻿@page "/"
+﻿@using HashtableAssignment.Library
+@using System.Collections
+@page "/"
+<link rel="stylesheet" href="Home.css">
+<PageTitle>Handy Hardware</PageTitle>
 
-<PageTitle>Home</PageTitle>
+<div class="mainContainer">
+    <div class="heading">
+        <h1>Handy Hardware Inventory</h1>
+    </div>
+    <div class="inputSection">
+        <label>New Product:
+            <input type="text" @bind="newProduct">
+        </label>
+        <label>
+            New Quantity:
+            <input type="number" @bind="newQuantity">
+        </label>
+        <button @onclick=AddProduct>Add Product</button>
+        <label>
+            Search:
+            <input type="text" @bind="productSearch">
+        </label>
+        <button @onclick=FindProduct>Find</button>
+        <h1>@statusMessage</h1>
+    </div>
+    <div class="outputSection">
+        <table>
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                </tr>
+            </thead>
+            <tbody>
 
-<h1>Hello, world!</h1>
+                @foreach (DictionaryEntry product in products.ProductHashtable)
+                {
+                    <tr>
+                        <td>@product.Key.ToString()</td>
+                        <td>@product.Value?.ToString()</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 
-Welcome to your new app.
+</div>
+
+@code {
+    ProductsHashtable products = new();
+    string newProduct;
+    string productSearch;
+    string statusMessage;
+    int newQuantity;
+
+    void AddProduct()
+    {
+        products.AddProduct(newProduct, newQuantity);
+        newProduct = "";
+        newQuantity = 0;
+        StateHasChanged();
+    }
+
+    void FindProduct()
+    {
+        if (products.HasProduct(productSearch))
+        {
+            statusMessage = $"Found product {productSearch}. There are {products.ProductHashtable[productSearch]} left!";
+        };
+        statusMessage = "Looks like it's out of stock!";
+        statusMessage = products.ProductHashtable.Contains(productSearch).ToString();
+    }
+
+}

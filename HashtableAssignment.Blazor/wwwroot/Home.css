@@ -1,0 +1,50 @@
+html {
+  box-sizing: border-box;
+  font-size: 67.5%;
+}
+
+body {
+  background-color: rgb(65, 65, 65);
+}
+
+.mainContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.heading {
+  font-size: 4rem;
+  text-align: center;
+  grid-column: span 2;
+}
+
+.inputSection {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  font-size: 2rem;
+  gap: 1rem;
+  padding: 3rem;
+}
+
+input {
+  font-size: 1.5rem;
+}
+
+button {
+  font-size: 2rem;
+  max-width: 50%;
+}
+
+table th {
+  font-size: 2.5rem;
+  border-bottom: solid 0.5rem black;
+}
+table td {
+  font-size: 2rem;
+}
+
+td,
+th {
+  padding-inline: 2rem;
+}
